@@ -2,7 +2,7 @@
 > Also known as **THAELYX**
 <br>
 
-<a href="https://leonardodilecce.github.io/T.H.A.E.L.Y.X/"><img src="https://img.shields.io/badge/🚀_Live_Demo-brightgreen" alt="Live Demo"></a>
+<a href="https://leonardodilecce.github.io/THAELYX/"><img src="https://img.shields.io/badge/🚀_Live_Demo-brightgreen" alt="Live Demo"></a>
 T.H.A.E.L.Y.X is an advanced, fully web‑based spaceflight simulator designed to model realistic physics, multi‑technology propulsion systems, and complex aerodynamic dynamics directly in the browser.
 
 Built for space enthusiasts, students, developers, and mission designers, T.H.A.E.L.Y.X combines scientific accuracy, engineering modularity, and a fully customizable approach to spacecraft simulation — all without requiring installation.
