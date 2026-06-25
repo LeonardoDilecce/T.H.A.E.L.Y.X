@@ -1,7 +1,7 @@
 # Security Policy
 
 ## Supported Versions
-Security updates and fixes will be applied to the latest active version of **Mission T.H.A.E.L.Y.X**  
+Security updates and fixes will be applied to the latest active version of **T.H.A.E.L.Y.X**  
 Older versions may not receive patches unless the issue is critical.
 
 ---
@@ -50,5 +50,5 @@ Once a vulnerability is confirmed:
 
 ## Thank You
 
-We appreciate your help in keeping **Mission T.H.A.E.L.Y.X** secure and reliable.  
+We appreciate your help in keeping **T.H.A.E.L.Y.X** secure and reliable.  
 Your contributions make the project stronger for everyone.
