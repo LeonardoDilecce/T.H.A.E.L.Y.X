@@ -1,4 +1,4 @@
-# Code of Conduct for Mission T.H.A.E.L.Y.X
+# Code of Conduct for T.H.A.E.L.Y.X
 
 ## 🌐 Our Commitment
 We are committed to providing a welcoming, safe, and inclusive environment for everyone.  
@@ -43,4 +43,4 @@ All reports will be handled confidentially.
 ---
 
 ## ❤️ Our Goal
-The goal of this Code of Conduct is to foster a positive, collaborative, and respectful environment where Mission T.H.A.E.L.Y.X can grow and thrive.
+The goal of this Code of Conduct is to foster a positive, collaborative, and respectful environment where T.H.A.E.L.Y.X can grow and thrive.
