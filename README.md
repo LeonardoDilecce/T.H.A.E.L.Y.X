@@ -1,4 +1,7 @@
 🚀 T.H.A.E.L.Y.X — Advanced Spaceflight Simulator
+[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://leonardodilecce.github.io/nome-repo)
+
+
 T.H.A.E.L.Y.X is an advanced, fully web‑based spaceflight simulator designed to model realistic physics, multi‑technology propulsion systems, and complex aerodynamic dynamics directly in the browser.
 
 Built for space enthusiasts, students, developers, and mission designers, T.H.A.E.L.Y.X combines scientific accuracy, engineering modularity, and a fully customizable approach to spacecraft simulation — all without requiring installation.
