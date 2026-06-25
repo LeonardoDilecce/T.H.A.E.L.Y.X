@@ -1,3 +1,4 @@
+//FORCE MAIN
 const G = 6.67430e-11;
 const c = 299_792_458;
 const S = 5.67e-8;
