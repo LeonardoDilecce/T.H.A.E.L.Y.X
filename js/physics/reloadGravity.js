@@ -1,5 +1,5 @@
-function reloadGravity(star,chronometer,starship,TargetMass,dx,dy,distanza2,distanza,targetA,targetE,TargetCenter,TargetEpochAnomaly,BaseMass,deltaTime){
-    const anomaly = calculateTrueAnomaly(star,chronometer,targetA,targetE,chronometer.time,TargetEpochAnomaly,BaseMass,null,deltaTime,false); 
+function reloadGravity(engine,star,chronometer,starship,TargetMass,dx,dy,distanza2,distanza,targetA,targetE,TargetCenter,TargetEpochAnomaly,BaseMass,deltaTime){
+    const anomaly = engine.CalculateTrueAnomaly(star,chronometer,targetA,targetE,chronometer.time,TargetEpochAnomaly,BaseMass,null,deltaTime,false); 
     const tr = targetA * (1 - targetE * targetE) / (1 + targetE * Math.cos(anomaly)); 
     const TSpeed = Math.sqrt(G * BaseMass * (2 / tr - 1 / targetA)); 
     let TargetGamma =  1 / Math.sqrt(1 - Math.pow(TSpeed / c, 2)); 

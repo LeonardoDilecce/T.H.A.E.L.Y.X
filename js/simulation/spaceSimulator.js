@@ -9,6 +9,7 @@ try {
 } catch (e) {
     alert("Invalid saved simulation data! Simulation restarted. Error: "+e);
 }
+const physicsEngine = new PhysicsEngine();
 class SpaceSimulator {
     resizeCanvas() {
         const rect = this.canvas.getBoundingClientRect();
@@ -205,7 +206,7 @@ class SpaceSimulator {
                         }
                     }
                 }
-                ComputePhysics(CloneStarship, deltaTime,true);
+                ComputePhysics(physicsEngine, CloneStarship, deltaTime, true);
                 trajectory.push({ x: CloneStarship.position.x, y: CloneStarship.position.y });
                 if (!isFinite(CloneStarship.position.x) || !isFinite(CloneStarship.velocity.x)) break;
                 const distanzaDalCentro = Math.hypot(CloneStarship.position.x - TargetPlanetCoord.x, CloneStarship.position.y - TargetPlanetCoord.y);
@@ -270,7 +271,7 @@ class SpaceSimulator {
             const { a, e } = planet;
             const b = a * Math.sqrt(1 - e * e);
             const c = a * e;
-            const anomaly = calculateTrueAnomaly(globalGameData.Star, globalGameData.chronometer, a, e, globalGameData.chronometer.time, planet.epochAnomaly, sunMass, planet, deltaTime);
+            const anomaly = physicsEngine.CalculateTrueAnomaly(globalGameData.Star, globalGameData.chronometer, a, e, globalGameData.chronometer.time, planet.epochAnomaly, sunMass, planet, deltaTime);
             planet.angle = (anomaly) % (2 * Math.PI);
             const cosI = Math.cos(planet.inclination);
             const sinI = Math.sin(planet.inclination);
@@ -318,7 +319,7 @@ class SpaceSimulator {
                     const me = moon.e ?? 0.01;
                     const mb = ma * Math.sqrt(1 - me * me);
                     const mc = ma * me;
-                    const MoonAnomaly = calculateTrueAnomaly(globalGameData.Star, globalGameData.chronometer, ma, me, globalGameData.chronometer.time, moon.epochAnomaly, planet.mass, moon, deltaTime);
+                    const MoonAnomaly = physicsEngine.CalculateTrueAnomaly(globalGameData.Star, globalGameData.chronometer, ma, me, globalGameData.chronometer.time, moon.epochAnomaly, planet.mass, moon, deltaTime);
                     moon.angle = (MoonAnomaly) % (2 * Math.PI);
                     const mxEll = ma * Math.cos(moon.angle);
                     const myEll = mb * Math.sin(moon.angle);
@@ -392,7 +393,7 @@ class SpaceSimulator {
                         moon.a = -mmu / (2 * menergy);
                         moon.e = Math.sqrt(1 + (2 * menergy * mhApprox * mhApprox) / (mmu * mmu));
                         const planetToMoon = new Planet(moon.name,moon.a+planet.a,moon.e+planet.e,moon.radius,moon.color,planet.angle,moon.meanSpeed,moon.mass,moon.inclination,planet.epochAnomaly,[],moon.atmosphere)
-                        const anomaly = calculateTrueAnomaly(globalGameData.Star, globalGameData.chronometer, planetToMoon.a, planetToMoon.e, globalGameData.chronometer.time, planetToMoon.epochAnomaly, sunMass, planetToMoon, deltaTime);
+                        const anomaly = physicsEngine.CalculateTrueAnomaly(globalGameData.Star, globalGameData.chronometer, planetToMoon.a, planetToMoon.e, globalGameData.chronometer.time, planetToMoon.epochAnomaly, sunMass, planetToMoon, deltaTime);
                         planetToMoon.angle = (anomaly) % (2 * Math.PI);
                         const cosI = Math.cos(planetToMoon.inclination);
                         const sinI = Math.sin(planetToMoon.inclination);
@@ -510,7 +511,7 @@ class SpaceSimulator {
                         ctx.strokeStyle = "rgba(255,255,255,0.15)";
                         ctx.stroke();
                     }else if(globalGameData.camera.scale<0.005){
-                        const anomaly = calculateTrueAnomaly(globalGameData.Star, globalGameData.chronometer, a, e, globalGameData.chronometer.time, planet.epochAnomaly, sunMass, planet, deltaTime);
+                        const anomaly = physicsEngine.CalculateTrueAnomaly(globalGameData.Star, globalGameData.chronometer, a, e, globalGameData.chronometer.time, planet.epochAnomaly, sunMass, planet, deltaTime);
                         const delta = Math.PI / 50;
                         const startAngle = anomaly - delta;
                         const endAngle = anomaly + delta;
@@ -1356,7 +1357,7 @@ class SpaceSimulator {
         const now = performance.now();
         const deltaTime = (((now - globalGameData.chronometer.lastFrameTime) / 1000)*globalGameData.chronometer.speed);
         this.RicalcolaCoordinateSistemaSolare(deltaTime);
-        ComputePhysics(globalGameData.Starship, deltaTime, false);
+        ComputePhysics(physicsEngine,globalGameData.Starship, deltaTime, false);
         reloadInfluenceArea(globalGameData.Starship, globalGameData.Star);
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.disegnaSistemaSolare(deltaTime);

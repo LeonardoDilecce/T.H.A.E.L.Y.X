@@ -1,4 +1,4 @@
-function ComputePhysics(starship,deltaTime,clone){
+function ComputePhysics(engine,starship,deltaTime,clone){
     if(!starship) return;
     let baseCoordinates = {x:0,y:0}
     let TargetMass  = 0;
@@ -77,13 +77,13 @@ function ComputePhysics(starship,deltaTime,clone){
     reloadThermodynamics(starship,deltaTime,targetAtmosphere,distanza-targetRadius,TargetMass,targetRadius,targetDistance);
     reloadParachuteDeployment(starship,targetAtmosphere,deltaTime);
     if(!starship.ferma&&starship.EnginesOnline) reloadFuelConsumption(starship,deltaTime,targetAtmosphere, TargetMass, targetRadius, targetDistance);
-    if(!starship.ferma) reloadAcceleration(starship,deltaTime,TargetMass,targetRadius,targetAtmosphere,targetA,targetE,TargetCenter,TargetEpochAnomaly,BaseMass);
+    if(!starship.ferma) reloadAcceleration(engine,starship,deltaTime,TargetMass,targetRadius,targetAtmosphere,targetA,targetE,TargetCenter,TargetEpochAnomaly,BaseMass);
     const a0 = starship.acceleration.clone();
     if(!starship.ferma){
         starship.relativePosition.x += starship.velocity.x * deltaTime+ 0.5 * a0.x * deltaTime * deltaTime;
         starship.relativePosition.y += starship.velocity.y * deltaTime + 0.5 * a0.y * deltaTime * deltaTime;
     }
-    if(!starship.ferma) reloadAcceleration(starship,deltaTime,TargetMass,targetRadius,targetAtmosphere,targetA,targetE,TargetCenter,TargetEpochAnomaly,BaseMass);
+    if(!starship.ferma) reloadAcceleration(engine,starship,deltaTime,TargetMass,targetRadius,targetAtmosphere,targetA,targetE,TargetCenter,TargetEpochAnomaly,BaseMass);
     const a1 = starship.acceleration.clone();
     starship.velocity.x += 0.5 * (a0.x + a1.x) * deltaTime;
     starship.velocity.y += 0.5 * (a0.y + a1.y) * deltaTime;
