@@ -271,7 +271,41 @@ class SpaceSimulator {
             const { a, e } = planet;
             const b = a * Math.sqrt(1 - e * e);
             const c = a * e;
-            const anomaly = physicsEngine.CalculateTrueAnomaly(globalGameData.Star, globalGameData.chronometer, a, e, globalGameData.chronometer.time, planet.epochAnomaly, sunMass, planet, deltaTime);
+            const anomaly = physicsEngine.CalculateTrueAnomaly(globalGameData.Star, globalGameData.chronometer, a, e, globalGameData.chronometer.time, planet.epochAnomaly, sunMass, planet, deltaTime);  
+            let epsilon = (G * sunMass) / (a * c * c);
+            if (epsilon > 0.1) 
+            {
+                epsilon = 0.1;
+            }
+            if(globalGameData.chronometer.speed!=0
+                && isFinite(globalGameData.chronometer.gamma)
+                && !isNaN(globalGameData.chronometer.gamma)
+            )
+            {
+                planet.a = a * (1 - 1.5 * epsilon); 
+                planet.e = e * (1 - epsilon);
+                planet.meanSpeed = Math.sqrt(G * sunMass / Math.pow(planet.a, 3));
+                const EventHorizonRadius = (2 * G * sunMass) / (c * c);
+                const distanceToCenter = Math.sqrt(
+                    planet.position.x * planet.position.x+planet.position.y * planet.position.y
+                );
+                if ((distanceToCenter <= EventHorizonRadius) && distanceToCenter != 0) 
+                {
+                    for (let i = 0; i < globalGameData.Star.planets.length; i++) 
+                    {
+                        if (globalGameData.Star.planets[i].name === planet.name) 
+                        {
+                            globalGameData.Star.planets.splice(i, 1);
+                            break;
+                        }
+                    }
+                }           
+            }
+
+
+
+
+
             planet.angle = (anomaly) % (2 * Math.PI);
             const cosI = Math.cos(planet.inclination);
             const sinI = Math.sin(planet.inclination);
@@ -320,6 +354,38 @@ class SpaceSimulator {
                     const mb = ma * Math.sqrt(1 - me * me);
                     const mc = ma * me;
                     const MoonAnomaly = physicsEngine.CalculateTrueAnomaly(globalGameData.Star, globalGameData.chronometer, ma, me, globalGameData.chronometer.time, moon.epochAnomaly, planet.mass, moon, deltaTime);
+                    let epsilon = (G * moon.mass) / (ma * c * c);
+                    if (epsilon > 0.1) 
+                    {
+                        epsilon = 0.1;
+                    }
+                    epsilon /=100;
+                    if(globalGameData.chronometer.speed!=0
+                        && isFinite(globalGameData.chronometer.gamma)
+                        && !isNaN(globalGameData.chronometer.gamma)
+                    )
+                    {
+                        moon.a = ma * (1 - 1.5 * epsilon); 
+                        moon.e = me * (1 - epsilon);
+                        moon.meanSpeed = Math.sqrt(G * moon.mass / Math.pow(moon.a, 3));
+                        const EventHorizonRadius = (2 * G * moon.mass) / (c * c);
+                        const distanceToCenter = Math.sqrt(
+                            moon.position.x * moon.position.x+moon.position.y * moon.position.y
+                        );
+                        if ((distanceToCenter <= EventHorizonRadius) && distanceToCenter != 0) 
+                        {
+                            for (let i = 0; i < globalGameData.Star.planets.length; i++) 
+                            {
+                                if (globalGameData.Star.planets[i].name === moon.name) 
+                                {
+                                    globalGameData.Star.planets.splice(i, 1);
+                                    break;
+                                }
+                            }
+                        }           
+                    }
+
+                    
                     moon.angle = (MoonAnomaly) % (2 * Math.PI);
                     const mxEll = ma * Math.cos(moon.angle);
                     const myEll = mb * Math.sin(moon.angle);
@@ -394,6 +460,39 @@ class SpaceSimulator {
                         moon.e = Math.sqrt(1 + (2 * menergy * mhApprox * mhApprox) / (mmu * mmu));
                         const planetToMoon = new Planet(moon.name,moon.a+planet.a,moon.e+planet.e,moon.radius,moon.color,planet.angle,moon.meanSpeed,moon.mass,moon.inclination,planet.epochAnomaly,[],moon.atmosphere)
                         const anomaly = physicsEngine.CalculateTrueAnomaly(globalGameData.Star, globalGameData.chronometer, planetToMoon.a, planetToMoon.e, globalGameData.chronometer.time, planetToMoon.epochAnomaly, sunMass, planetToMoon, deltaTime);
+                        let epsilon = (G * sunMass) / (planetToMoon.a * c * c);
+                        if (epsilon > 0.1) 
+                        {
+                            epsilon = 0.1;
+                        }
+                        epsilon /=100;
+                        if(globalGameData.chronometer.speed!=0
+                            && isFinite(globalGameData.chronometer.gamma)
+                            && !isNaN(globalGameData.chronometer.gamma)
+                        )
+                        {
+                            planetToMoon.a = planetToMoon.a * (1 - 1.5 * epsilon); 
+                            planetToMoon.e = planetToMoon.e * (1 - epsilon);
+                            planetToMoon.meanSpeed = Math.sqrt(G * sunMass / Math.pow(planetToMoon.a, 3));
+                            const EventHorizonRadius = (2 * G * sunMass) / (c * c);
+                            const distanceToCenter = Math.sqrt(
+                                planetToMoon.position.x * planetToMoon.position.x+planetToMoon.position.y * planetToMoon.position.y
+                            );
+                            if ((distanceToCenter <= EventHorizonRadius) && distanceToCenter != 0) 
+                            {
+                                for (let i = 0; i < star.planets.length; i++) 
+                                {
+                                    if (star.planets[i].name === planetToMoon.name) 
+                                    {
+                                        star.planets.splice(i, 1);
+                                        break;
+                                    }
+                                }
+                            }           
+                        }
+
+                        
+                        
                         planetToMoon.angle = (anomaly) % (2 * Math.PI);
                         const cosI = Math.cos(planetToMoon.inclination);
                         const sinI = Math.sin(planetToMoon.inclination);
