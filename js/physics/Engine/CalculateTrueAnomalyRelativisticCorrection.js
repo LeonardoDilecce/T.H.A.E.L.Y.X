@@ -67,7 +67,7 @@ PhysicsEngine.prototype.CalculateTrueAnomalyRelativisticCorrection = function(
     const gamma = 1 / Math.sqrt(1 - beta * beta);
     // Apply relativistic drift:
     // θ_rel = θ + (Δφ / γ) * (t / period)
-    let thetaRel = (theta + (deltaPhi / gamma) * (t / period)) % (2 * Math.PI);
+    const thetaRel = (theta + (deltaPhi / gamma) * (t / period)) % (2 * Math.PI);
     // Normalize angle to 0–2π
-    return thetaRel = (2 * Math.PI - thetaRel) % (2 * Math.PI);      
+    return (2 * Math.PI - thetaRel) % (2 * Math.PI);      
 }
