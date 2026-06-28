@@ -13,7 +13,7 @@ function reloadInfluenceArea(starship, star)
             const dx = StashipX - PlanetX;
             const dy = StashipY - PlanetY;
             const dist2 = dx*dx + dy*dy;
-            const force = planet.mass / dist2;
+            const force = physicsEngine.ComputeGravitationalInfluence(planet.mass, StashipX, StashipY, PlanetX, PlanetY);
             if(dist2 <= influenceAreaRadius * influenceAreaRadius){
                 PlausibileMoons.push(...planet.moons);
                 if(force>MaxPlanetaryForce){
@@ -33,7 +33,7 @@ function reloadInfluenceArea(starship, star)
                 const Mdx = StashipX - MoonX;
                 const Mdy = StashipY - MoonY;
                 const dist2 = Mdx*Mdx + Mdy*Mdy;
-                const force = moon.mass / dist2;
+                const force = physicsEngine.ComputeGravitationalInfluence(moon.mass, StashipX, StashipY, MoonX, MoonY);
                 if((dist2 <= MoonInfluenceRadius * MoonInfluenceRadius)&&force>MaxMoonInfForce){     
                     findMoon = true;               
                     starship.relatedObject = moon.name;

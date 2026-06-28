@@ -42,9 +42,8 @@
   * - js/physics/Engine/Atmospheric/ComputeHumidityFactor.js
   * - js/physics/Engine/Atmospheric/ComputeSpecificHeat.js
   * - js/physics/Engine/Atmospheric/ComputeMolarMass.js
-  * 
-  * - js/physics/Engine/Atmospheric/simulateAtmosphercColumn.js
-  * 
+  * - js/physics/Engine/Atmospheric/ComputeAtmosphericColumn.js
+  * - js/physics/Engine/Gravity/ComputeGravitationalInfluence.js
   **/
 class PhysicsEngine 
 { 
@@ -115,5 +114,13 @@ class PhysicsEngine
         altitudeStart,
         altitudeEnd,
         baseDensity
+    ) {};
+    //Defined in js/physics/Engine/Gravity/ComputeGravitationalInfluence.js
+    ComputeGravitationalInfluence(
+        mass,
+        x1,
+        y1,
+        x2,
+        y2
     ) {};
 }
